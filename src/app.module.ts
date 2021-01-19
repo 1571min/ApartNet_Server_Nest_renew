@@ -26,7 +26,7 @@ import { join } from 'path'
         port: configService.get('DB.PORT'),
         username: configService.get('DB.USERNAME'),
         password: configService.get('DB.PASSWORD'),
-        database: configService.get('DB.DATABASE'),
+        database: configService.get('DB.DATABASE_NAME'),
         entities: [join(__dirname, '/modules/**/*.entity.js')],
         synchronize: false
       })

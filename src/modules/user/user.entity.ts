@@ -1,9 +1,19 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
+} from 'typeorm'
+import { Conversation } from '../message/conversation.entity'
+import { ConversationReply } from '../message/conversation-reply.entity'
 
 @Entity({
   name: 'User'
 })
-export class UserEntity {
+export class User {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -30,6 +40,15 @@ export class UserEntity {
     type: 'text'
   })
   address: string
+
+  @OneToMany(() => Conversation, (conversation) => conversation.userOne)
+  userOnes: Conversation[]
+
+  @OneToMany(() => Conversation, (message) => message.userTwo)
+  userTwos: Conversation[]
+
+  @OneToMany(() => ConversationReply, (conversationReplies) => conversationReplies.user)
+  conversations: ConversationReply[]
 
   @CreateDateColumn()
   createAt: Date

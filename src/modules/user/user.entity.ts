@@ -9,6 +9,7 @@ import {
 } from 'typeorm'
 import { Conversation } from '../message/conversation.entity'
 import { ConversationReply } from '../message/conversation-reply.entity'
+import { Comment } from '../comment/comments.entity'
 
 @Entity({
   name: 'User'
@@ -49,6 +50,9 @@ export class User {
 
   @OneToMany(() => ConversationReply, (conversationReplies) => conversationReplies.user)
   conversations: ConversationReply[]
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[]
 
   @CreateDateColumn()
   createAt: Date

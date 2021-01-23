@@ -10,6 +10,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import configOption from './config/configOption'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { join } from 'path'
+import { ApartmentModule } from './modules/apartment/apartment.module'
 
 @Module({
   imports: [
@@ -35,7 +36,8 @@ import { join } from 'path'
     UserModule,
     MessageModule,
     BoardModule,
-    CommentModule
+    CommentModule,
+    ApartmentModule
   ],
   controllers: [AppController],
   providers: [AppService]

@@ -4,12 +4,15 @@ import {
   DeleteDateColumn,
   Entity,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
 import { Conversation } from '../message/conversation.entity'
 import { ConversationReply } from '../message/conversation-reply.entity'
 import { Comment } from '../comment/comments.entity'
+import { Apartment } from '../apartment/apartment.entity'
+import { Board } from '../board/board.entity'
 
 @Entity({
   name: 'User'
@@ -36,12 +39,6 @@ export class User {
   })
   fullName: string
 
-  @Column({
-    name: 'ADDRESS',
-    type: 'text'
-  })
-  address: string
-
   @OneToMany(() => Conversation, (conversation) => conversation.userOne)
   userOnes: Conversation[]
 
@@ -53,6 +50,12 @@ export class User {
 
   @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[]
+
+  @OneToMany(() => Board, (board) => board.user)
+  boards: Board[]
+
+  @OneToOne(() => Apartment, (apartment) => apartment.user)
+  apartment: Apartment
 
   @CreateDateColumn()
   createAt: Date

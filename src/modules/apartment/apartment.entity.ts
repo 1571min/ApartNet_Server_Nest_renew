@@ -3,34 +3,44 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
 import { User } from '../user/user.entity'
+import { Comment } from '../comment/comments.entity'
 import { Board } from '../board/board.entity'
 
-@Entity('COMMENT')
-export class Comment {
+@Entity('APARTMENT')
+export class Apartment {
   @PrimaryGeneratedColumn()
   id: number
 
   @Column({
-    name: 'CONTENT',
+    name: 'NAME',
     type: 'text'
   })
-  content: string
+  name: string
 
-  @ManyToOne(() => User, (user) => user.comments)
+  @Column({
+    name: 'ADDRESS',
+    type: 'text'
+  })
+  address: string
+
+  @OneToOne(() => User, (user) => user.apartment)
   user: User
 
-  @ManyToOne(() => Board, (board) => board.comments)
-  board: Board
+  @OneToMany(() => Board, (board) => board.apartment)
+  boards: Board[]
 
   @CreateDateColumn()
   createAt: Date
 
   @UpdateDateColumn()
   updateAt: Date
+
+  @DeleteDateColumn()
+  deleteAt: Date
 }

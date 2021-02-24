@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
 import { AuthModule } from './modules/auth/auth.module'
 import { UserModule } from './modules/user/user.module'
 import { MessageModule } from './modules/message/message.module'
@@ -29,7 +27,8 @@ import { ApartmentModule } from './modules/apartment/apartment.module'
         password: configService.get('DB.PASSWORD'),
         database: configService.get('DB.DATABASE_NAME'),
         entities: [join(__dirname, '/modules/**/*.entity.js')],
-        synchronize: false
+        synchronize: false,
+        logging: true
       })
     }),
     AuthModule,
@@ -38,8 +37,6 @@ import { ApartmentModule } from './modules/apartment/apartment.module'
     BoardModule,
     CommentModule,
     ApartmentModule
-  ],
-  controllers: [AppController],
-  providers: [AppService]
+  ]
 })
 export class AppModule {}
